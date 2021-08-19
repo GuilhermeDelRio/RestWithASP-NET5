@@ -28,6 +28,9 @@ namespace RestWithASPNET {
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, serverVersion));
 
+            // Versionamento da API
+            services.AddApiVersioning();
+
             // Injeção de dependências
             services.AddScoped<IPersonService, PersonServiceImplementation>();
         }

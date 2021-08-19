@@ -8,8 +8,9 @@ using System.Linq;
 using System.Threading.Tasks;
 
 namespace RestWithASPNET.Controllers {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase {
 
         private readonly ILogger<PersonController> _logger;

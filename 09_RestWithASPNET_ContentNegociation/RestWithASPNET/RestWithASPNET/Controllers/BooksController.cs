@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using RestWithASPNET.Model;
 using RestWithASPNET.Business;
 using RestWithASPNET.Data.VO;
+using RestWithASPNET.Hypermedia.Filters;
 
 namespace RestWithASPNET.Controllers {
     [ApiVersion("1")]
@@ -19,11 +19,13 @@ namespace RestWithASPNET.Controllers {
         }
 
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get() {
             return Ok(_booksBusiness.FindAll());
         }
 
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id) {
             var book = _booksBusiness.FindById(id);
             if (book == null) return NotFound();
@@ -31,12 +33,14 @@ namespace RestWithASPNET.Controllers {
         }
 
         [HttpPost]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] BooksVO books) {
             if (books == null) return BadRequest();
             return Ok(_booksBusiness.Create(books));
         }
 
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] BooksVO books) {
             if (books == null) return BadRequest();
             return Ok(_booksBusiness.Update(books));

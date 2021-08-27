@@ -13,6 +13,8 @@ using Serilog;
 using System.Collections.Generic;
 using RestWithASPNET.Repository.Generic;
 using Microsoft.Net.Http.Headers;
+using RestWithASPNET.Hypermedia.Filters;
+using RestWithASPNET.Hypermedia.Enricher;
 
 namespace RestWithASPNET {
     public class Startup {
@@ -48,7 +50,12 @@ namespace RestWithASPNET {
                 options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("aplication/xml"));
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("aplication/json"));
             }).AddXmlSerializerFormatters();
-              
+
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new BooksEnricher());
+
+            services.AddSingleton(filterOptions);
 
             // Versionamento da API
             services.AddApiVersioning();
@@ -74,6 +81,7 @@ namespace RestWithASPNET {
 
             app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id}");
             });
         }
         private void MigrationDatabse(string connection) {

@@ -5,7 +5,7 @@ mono: none
 dotnet: 5.0
 services: docker
 before_install:
-  - cd 16_RestWithASPNET_Docker
+  - cd 16_RestWithASPNET_Docker/RestWithASPNET
   - echo "We are in the right folder!"
 script:
   - docker-compose build

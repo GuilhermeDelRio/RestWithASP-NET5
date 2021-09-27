@@ -88,7 +88,7 @@ namespace RestWithASPNET {
 
             services.AddControllers();
 
-            // Conexão com o banco
+            // ConexÃ£o com o banco
             var connection = Configuration["MySQLConnection:MySQLConnectionString"];
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, serverVersion));
@@ -117,7 +117,7 @@ namespace RestWithASPNET {
             services.AddSwaggerGen(c => {
                 c.SwaggerDoc("v1",
                     new OpenApiInfo {
-                        Title = "REST API's From 0 to Azure with ASP.NET Core 5 and Docker",
+                        Title = "REST API's From 0 to Azure with ASP.NET Core 5 and Docker - Foo Bar",
                         Version = "v1",
                         Description = "API RESTful developed in course 'REST API's From 0 to Azure with ASP.NET Core 5 and Docker'",
                         Contact = new OpenApiContact {
@@ -127,7 +127,7 @@ namespace RestWithASPNET {
                     });
             });
 
-            // Injeção de dependências
+            // InjeÃ§Ã£o de dependÃªncias
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
